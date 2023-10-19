@@ -1,6 +1,12 @@
 <h4>Lista studentów</h4>
 
-<table class="table">
+<!-- Event binding na zdarzenie click -->
+<button 
+(click)="changeStudentsShowing()"
+class="btn btn-secondary">{{buttonText}}</button>
+
+<!-- Jeżeli isTableVisble == true to pokaż tabelę -->
+<table *ngIf="isTableVisible" class="table">
     <thead>
         <tr>
             <th>Id</th>
@@ -10,11 +16,25 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Jan Kowalski</td>
-            <td>kowalski@gmail.com</td>
-            <td>312321132</td>
+        <!-- [ngClass] = do tworzenia warunków dla konkretnych styli -->
+        <!-- *ngFor - pętla foreach  -->
+        <tr [ngClass]="{'table-danger': student.isDeleted,
+        'table-warning': student.id == 4}" *ngFor="let student of students">
+            <td>{{student.id}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.phone}}</td>
         </tr>
     </tbody>
 </table>
+
+<!-- Jeżeli isTableVisible == false - pokaż ten fragment -->
+<ng-container *ngIf="isTableVisible==false">
+    <div *ngFor="let student of students">
+        <h2>{{student.name}}</h2>
+        <p>{{student.email}}</p>
+        <!-- *ngIf - klasyczna instrukcja warunkowa -->
+        <p *ngIf="student.isDeleted" style="color:red;font-size:12px">
+            Usunięty student!</p>
+    </div>
+</ng-container>
