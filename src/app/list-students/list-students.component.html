@@ -1,9 +1,19 @@
 <h4>Lista studentów</h4>
 
+<div *ngIf="isDataReady == false" class="spinner-border text-success" 
+    style="top:50%;left:50%;position:absolute"
+    role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+
+
 <!-- Event binding na zdarzenie click -->
-<button 
-(click)="changeStudentsShowing()"
-class="btn btn-secondary">{{buttonText}}</button>
+<button (click)="changeStudentsShowing()" class="btn btn-secondary">{{buttonText}}</button>
+
+<!-- !isErrorOccured to jest to samo isErrorOccured == true -->
+<div *ngIf="isErrorOccured" class="alert alert-danger" style="margin-top:10px">
+    Wystąpił błąd w pobieraniu danych
+</div>
 
 <!-- Jeżeli isTableVisble == true to pokaż tabelę -->
 <table *ngIf="isTableVisible" class="table">
@@ -21,7 +31,7 @@ class="btn btn-secondary">{{buttonText}}</button>
         <tr [ngClass]="{'table-danger': student.isDeleted,
         'table-warning': student.id == 4}" *ngFor="let student of students">
             <td>{{student.id}}</td>
-            <td>{{student.name}}</td>
+            <td>{{student.fullName}}</td>
             <td>{{student.email}}</td>
             <td>{{student.phone}}</td>
         </tr>
@@ -31,7 +41,7 @@ class="btn btn-secondary">{{buttonText}}</button>
 <!-- Jeżeli isTableVisible == false - pokaż ten fragment -->
 <ng-container *ngIf="isTableVisible==false">
     <div *ngFor="let student of students">
-        <h2>{{student.name}}</h2>
+        <h2>{{student.fullName}}</h2>
         <p>{{student.email}}</p>
         <!-- *ngIf - klasyczna instrukcja warunkowa -->
         <p *ngIf="student.isDeleted" style="color:red;font-size:12px">
