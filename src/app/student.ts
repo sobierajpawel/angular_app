@@ -1,16 +1,7 @@
 export class Student {
-    id : number;
-    fullName : string;
-    email : string;
-    phone : string;
-    isDeleted : boolean;
 
-    constructor(id : number, name : string, email:string, phone : string, isDeleted : boolean){
-        this.id = id;
-        this.fullName = name;
-        this.email = email;
-        this.phone = phone;
-        this.isDeleted = isDeleted;
+    constructor(public id : number, public fullName : string,public email:string,public phone : string,public isDeleted : boolean){
+
     }
     
 }
