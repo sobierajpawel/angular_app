@@ -3,3 +3,16 @@
     border-radius: 15px;
     padding: 25px;
 }
+
+.margin-top{
+    margin-top:20px;
+}
+
+.button-space{
+    margin-right: 5px;
+}
+
+.error-info{
+    color:red;
+    font-size:12px
+}

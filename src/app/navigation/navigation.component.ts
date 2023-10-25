@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class NavigationComponent {
     title : string = "Student-manager-application";
     new_title = "test";
+    cssSelectedNav = "selected-nav";
 
     onClickBtn(){
       this.title = "Changed title";

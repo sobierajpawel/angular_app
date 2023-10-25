@@ -7,13 +7,18 @@ import { map } from 'rxjs';
   providedIn: 'root'
 })
 export class StudentHttpService {
+  private url = "https://jsonplaceholder.typicode.com/users";
 
   constructor(private httpClient: HttpClient) { }
 
   getStudents() {
-    let url = "https://jsonplaceholder.typicode.com/users";
-    return this.httpClient.get<any[]>(url)
+    return this.httpClient.get<any[]>(this.url)
       .pipe(map(data => data.map(item =>
         new Student(item.id, item.name, item.email, item.phone, false))));
+  }
+
+  // Metodę dodającą studenta -> wysyłającą request typu POST
+  postStudent(student: Student) {
+    return this.httpClient.post<Student>(this.url, student);
   }
 }

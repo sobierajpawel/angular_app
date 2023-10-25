@@ -1,22 +1,39 @@
-<h4>Dodaj nowego studenta</h4>
+<div class="border-form margin-top">
 
-<form class="border-form">
-    <div>
-        <label class="form-label">Imię i nazwisko</label>
-        <input class="form-control" type="text" />
-    </div>
+    <h4>Dodaj nowego studenta</h4>
 
-    <div>
-        <label class="form-label">Email</label>
-        <input class="form-control" type="email"/>
-    </div>
+    <form #form="ngForm" class="margin-top" (ngSubmit)="submitForm(form)">
+        <div>
+            <label class="form-label">Imię i nazwisko</label>
+            <input #name_input="ngModel" name="name" required [(ngModel)]="student.fullName" class="form-control"
+                type="text" placeholder="Wprowadź imię i nazwisko" />
+            <div *ngIf="name_input.invalid && name_input.touched" class="error-info">Pole jest wymagane</div>
+        </div>
 
-    <div>
-        <label class="form-label">Numer telefonu</label>
-        <input class="form-control" type="text" />
-    </div>
+        <div>
+            <label class="form-label">Email</label>
+            <input #input_email="ngModel" name="email" required email [(ngModel)]="student.email" class="form-control"
+                type="email" placeholder="Wprowadź email" />
+            <div class="error-info" *ngIf="input_email.errors?.['required']">Pole jest wymagane</div>
+            <div class="error-info" *ngIf="input_email.errors?.['email']">Zła wartość email</div>
+        </div>
 
-    <div>
-        <button class="btn btn-primary">Zapisz</button>
-    </div>
-</form>
+        <div>
+            <label class="form-label">Numer telefonu</label>
+            <input #input_phone="ngModel" name="phone" pattern="^[\d\s\-\(\)]{7,15}$" [(ngModel)]="student.phone" class="form-control" type="text"
+                placeholder="Wprowadź numer telefonu" />
+            <div class="error-info" *ngIf="input_phone.errors?.['pattern']">Wartość nie jest numerem telefonu</div>
+        </div>
+
+        <div class="margin-top">
+            <button [disabled]="isSubmitting" class="btn btn-primary button-space">Zapisz</button>
+            <button type="button" (click)="setDefaultValues()" class="btn btn-secondary button-space">Wypełnij
+                przykładowymi danymi</button>
+            <button type="reset" class="btn btn-info">Reset</button>
+        </div>
+
+        <div *ngIf="isValidationErrorOccured" class="error-info">
+            Przynajmniej jedna z walidacji nie została spełniona!
+        </div>
+    </form>
+</div>
