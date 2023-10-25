@@ -11,10 +11,12 @@ import { delay } from 'rxjs';
 })
 export class ListStudentsComponent {
   students: Student[] = [];
+  copyStudents: Student[] = [];
   isTableVisible: boolean = true;
   buttonText: string = "Wyświetl listę";
   isDataReady = false;
   isErrorOccured = false;
+  searchPhrase = "";
 
   constructor(private studentHttpService: StudentHttpService) {
     // this.students.push(new Student(1,
@@ -41,12 +43,14 @@ export class ListStudentsComponent {
           console.log("Wewnątrz subscribe");
           console.log(data);
           this.students = data;
+          this.copyStudents = data;
           this.isDataReady = true;
         },
-        error : err =>{
+        error: err => {
           this.isErrorOccured = true;
           this.isDataReady = true;
-        }});
+        }
+      });
 
     console.log("Po wywołaniem subscribe");
   }
@@ -59,5 +63,21 @@ export class ListStudentsComponent {
     } else {
       this.buttonText = "Wyświetl tabelę";
     }
+  }
+
+  search() {
+    console.log(this.searchPhrase);
+
+    //Zaczyna się od 
+    // this.students = this.copyStudents.filter
+    //   (x => x.fullName.toLowerCase()
+    //     .startsWith(this.searchPhrase.toLowerCase()));
+
+    // Zawiera
+    this.students = this.copyStudents.filter
+        (x => x.fullName.toLowerCase()
+          .includes(this.searchPhrase.toLowerCase()) ||
+          x.email.toLowerCase()
+          .includes(this.searchPhrase.toLowerCase()));
   }
 }

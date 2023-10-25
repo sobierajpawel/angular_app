@@ -8,13 +8,19 @@ import { ListStudentsComponent } from './list-students/list-students.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { FormsModule } from '@angular/forms';
+import { EditStudentComponent } from './edit-student/edit-student.component';
+import { HighlightSearchedPhrasePipe } from './highlight-searched-phrase.pipe';
+import { HighlightDirective } from './highlight.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     ListStudentsComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    EditStudentComponent,
+    HighlightSearchedPhrasePipe,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
