@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { EditStudentComponent } from './edit-student/edit-student.component';
 import { HighlightSearchedPhrasePipe } from './highlight-searched-phrase.pipe';
 import { HighlightDirective } from './highlight.directive';
+import { FormStudentComponent } from './form-student/form-student.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HighlightDirective } from './highlight.directive';
     AddStudentComponent,
     EditStudentComponent,
     HighlightSearchedPhrasePipe,
-    HighlightDirective
+    HighlightDirective,
+    FormStudentComponent
   ],
   imports: [
     BrowserModule,

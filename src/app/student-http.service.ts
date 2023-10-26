@@ -39,4 +39,9 @@ export class StudentHttpService {
 
     return this.httpClient.put<Student>(studenturl, student);
   }
+
+  deleteStudent(id : number){
+    let studenturl = this.url + "/" + id;
+    return this.httpClient.delete(studenturl);
+  }
 }

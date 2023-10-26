@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Student } from '../student';
 import { NgForm } from '@angular/forms';
 import { StudentHttpService } from '../student-http.service';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-add-student',
@@ -15,34 +16,25 @@ export class AddStudentComponent {
   // 4) Obsłużyć żądanie POST - dodawanie nowego studenta do API
   // 5) Prosta walidacja
   // 6) Poinformować użytkownika o sukcesie lub błędzie operacji
-  student: Student = new Student(1, "", "", "", false);
+  //student: Student = new Student(1, "", "", "", false);
   isValidationErrorOccured = false;
-  isSubmitting = false;
+  isFormSubmitting = false;
 
   constructor(private studentHttpService : StudentHttpService){
 
   }
 
-  submitForm(form : NgForm) {
-    this.isValidationErrorOccured = false;
+  addStudent(student : Student){
+    console.log(student);
+  
 
-    if (form.valid == false){
-      this.isValidationErrorOccured = true;
-      return;
-    }
-    this.isSubmitting = true;
+    this.studentHttpService.postStudent(student)
 
-    console.log(this.student);
-
-    this.studentHttpService.postStudent(this.student)
-      .subscribe(_=>{
-        alert("Otrzymano odpowiedź!");
-        this.isSubmitting = false;
-      });
+    .subscribe(_=>{
+      alert("Otrzymano odpowiedź!");
+       this.isFormSubmitting = false;
+    });
   }
 
-  setDefaultValues() {
-    this.student = new Student(1, "Adam Nowak", "nowak@test.pl",
-      "32132113232", false);
-  }
+ 
 }

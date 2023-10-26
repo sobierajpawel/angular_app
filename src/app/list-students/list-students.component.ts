@@ -17,6 +17,7 @@ export class ListStudentsComponent {
   isDataReady = false;
   isErrorOccured = false;
   searchPhrase = "";
+  removedStudent = "";
 
   constructor(private studentHttpService: StudentHttpService) {
     // this.students.push(new Student(1,
@@ -79,5 +80,18 @@ export class ListStudentsComponent {
           .includes(this.searchPhrase.toLowerCase()) ||
           x.email.toLowerCase()
           .includes(this.searchPhrase.toLowerCase()));
+  }
+
+
+  delete(id : number){
+    this.studentHttpService.deleteStudent(id)
+      .subscribe(()=>{
+        let student = this.students.find(x=>x.id === id);
+        if (student){
+          this.removedStudent = student.fullName;
+        }      
+      
+        this.students = this.students.filter(x=>x.id !== id);
+      });
   }
 }

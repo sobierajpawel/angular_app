@@ -1,5 +1,5 @@
 <h4
-appHighlight
+appHighlight [color]="'red'"
 >Lista studentów</h4>
 
 <div *ngIf="isDataReady == false" class="spinner-border text-success" style="top:50%;left:50%;position:absolute"
@@ -9,7 +9,7 @@ appHighlight
 
 
 <!-- Event binding na zdarzenie click -->
-<button 
+<button [color]="'rgb(122,122,0)'"
 appHighlight
 (click)="changeStudentsShowing()" class="btn btn-secondary">{{buttonText}}</button>
 
@@ -24,6 +24,12 @@ appHighlight
 <!-- !isErrorOccured to jest to samo isErrorOccured == true -->
 <div *ngIf="isErrorOccured" class="alert alert-danger" style="margin-top:10px">
     Wystąpił błąd w pobieraniu danych
+</div>
+
+<div style="margin-top:10px" 
+*ngIf="removedStudent"
+class="alert alert-danger">
+   Usunięto studenta {{removedStudent}} 
 </div>
 
 <!-- Jeżeli isTableVisble == true to pokaż tabelę -->
@@ -47,7 +53,12 @@ appHighlight
             <td [innerHTML]="student.email | highlightsearched : searchPhrase"></td>
             <td>{{student.phone}}</td>
             <td>
-                <a [routerLink]="'/edit-student/' + student.id" class="btn btn-warning">Edytuj</a>
+                <a [routerLink]="'/edit-student/' 
+                + student.id" class="btn btn-warning">
+                Edytuj</a>
+                <button (click)="delete(student.id)" style="margin-left:10px" class="btn btn-danger">
+                    Usuń
+                </button>
             </td>
         </tr>
     </tbody>
@@ -61,6 +72,9 @@ appHighlight
         <!-- *ngIf - klasyczna instrukcja warunkowa -->
         <p *ngIf="student.isDeleted" style="color:red;font-size:12px">
             Usunięty student!</p>
-        <a [routerLink]="'/edit-student/' + student.id" class="btn btn-warning">Edytuj</a>
+        <a [routerLink]="'/edit-student/' + student.id" 
+        class="btn btn-warning">Edytuj</a>
+        <button style="margin-left:10px" (click)="delete(student.id)"
+        class="btn btn-danger">Usuń</button>
     </div>
 </ng-container>

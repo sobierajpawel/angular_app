@@ -11,7 +11,7 @@ import { delay } from 'rxjs';
   styleUrls: ['./edit-student.component.css']
 })
 export class EditStudentComponent {
-  student: Student = new Student(1, "", "", "", false);
+  editedStudent: Student = new Student(1, "", "", "", false);
   isSubmitting = false;
   isSuccess = false;
 
@@ -23,23 +23,19 @@ export class EditStudentComponent {
 
       this.httpService.getStudent(id)
         .subscribe(data => {
-          this.student = data;
+          this.editedStudent = data;
         })
     })
   }
 
-  submitForm(form: NgForm) {
-    if (form.valid == false) {
-      return;
-    }
-    this.isSubmitting = true;
-
-    this.httpService.putStudent(this.student)
+  editStudent(student : Student){
+    this.httpService.putStudent(student)
     .pipe(delay(2000))
       .subscribe(_ => {
-        // alert("Zaktualizowano studenta!");
+        alert("Zaktualizowano studenta!");
         this.isSuccess = true;
         this.isSubmitting = false;
       });
   }
+
 }
